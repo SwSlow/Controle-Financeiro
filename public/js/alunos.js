@@ -62,14 +62,12 @@ function checkLogged() {
 
 }
 
-
 function getAlunos() {
     const alunos = data.alunos;
     let alunosHtml = ``;
 
     if(alunos.length){
         alunos.forEach((item) => {
-            let type = "entrada";
 
             if  (item.type === "2"){
                 type = "saída";
