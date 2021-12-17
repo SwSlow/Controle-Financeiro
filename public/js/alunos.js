@@ -3,7 +3,7 @@ let logged = sessionStorage.getItem("logged");
 const session = localStorage.getItem("session");
 let data = {
     alunos: []
-};  
+};   
 
 document.getElementById("button-logout").addEventListener("click", logout);
 
@@ -16,7 +16,6 @@ document.getElementById("addAluno-form").addEventListener("submit", function(e) 
     const value = parseFloat(document.getElementById("value-input").value);
     const date = document.getElementById("date-input").value;
 
-
     data.alunos.unshift ({
         name: name, cel: cel, value: value, date: date
     }); 
@@ -27,20 +26,11 @@ document.getElementById("addAluno-form").addEventListener("submit", function(e) 
 
     getAlunos();
 
-    alert("Aluno Adicionado!");
+    alert("Aluno adicionado!");
 
 });
 
-function logout() {
-    sessionStorage.removeItem("logged");
-    localStorage.removeItem("session");
-
-    window.location.href = "index.html";
-}
-
-function saveData(data) {
-    localStorage.setItem(data.login, JSON.stringify(data));
-}
+checkLogged();
 
 function checkLogged() {
     if(session) {
@@ -62,23 +52,31 @@ function checkLogged() {
 
 }
 
+function logout() {
+    sessionStorage.removeItem("logged");
+    localStorage.removeItem("session");
+
+    window.location.href = "index.html";
+}
+
+function saveData(data) {
+    localStorage.setItem(data.login, JSON.stringify(data));
+}
+
 function getAlunos() {
     const alunos = data.alunos;
     let alunosHtml = ``;
 
     if(alunos.length){
         alunos.forEach((item) => {
-
-            if  (item.type === "2"){
-                type = "saída";
-            }
-
+            
             alunosHtml += `
                 <tr>
                     <th scope="row">${item.name}</th>
                     <td>${item.cel}</td>
-                    <td>R$${item.value.toFixed(2)}</td>
+                    <td>R$${item.value}</td>
                     <td>${item.date}</td>
+                    <td><button type="button" class="btn bi bi-trash"></button></td>
                 </tr>
             `
 
